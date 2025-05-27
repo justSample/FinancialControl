@@ -1,0 +1,6 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-*: initial;
+  --font-sans: 'Roboto Flex', sans-serif;
+}
