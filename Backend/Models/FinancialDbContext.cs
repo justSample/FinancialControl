@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Backend.Models.Db;
+﻿using Backend.Models.Db;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Models;
@@ -18,6 +16,7 @@ public partial class FinancialDbContext : DbContext
     {
     }
 
+    // Стыдно? Возможно. Хочу ли я его теперь поменять? Тоже возможно. Но уже поздно :)
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseMySQL("server=localhost;port=3309;database=financial;user=juster;password=justersampler;");
 
