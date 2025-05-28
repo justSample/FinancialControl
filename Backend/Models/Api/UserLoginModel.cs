@@ -11,4 +11,6 @@ public class UserLoginModel
     [Required(ErrorMessage = "Password is required")]
     [StringLength(100, ErrorMessage = "Login must be between 3 and 100 characters", MinimumLength = 3)]
     public string Password { get; set; }
+    
+    public string? Username { get; set; }
 }
