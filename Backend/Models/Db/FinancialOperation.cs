@@ -12,7 +12,7 @@ public class FinancialOperation
     
     [ForeignKey(nameof(User))]
     [Column("idUserAdd")]
-    public int IdUserAdd { get; set; }
+    public Guid IdUserAdd { get; set; }
     
     [ForeignKey(nameof(Category))]
     [Column("idCategory")]

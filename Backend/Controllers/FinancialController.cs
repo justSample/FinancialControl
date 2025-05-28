@@ -13,7 +13,7 @@ public class FinancialController : ControllerBase
 {
     
     [HttpGet("{idUser}")]
-    public async Task<IActionResult> GetFinancialOperations(int idUser, [FromBody] FinancialSearchModel search)
+    public async Task<IActionResult> GetFinancialOperations(Guid idUser, [FromBody] FinancialSearchModel search)
     {
         await using FinancialDbContext context = new FinancialDbContext();
 

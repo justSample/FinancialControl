@@ -12,7 +12,7 @@ public class Category
     
     [ForeignKey(nameof(User))]
     [Column("idUser")]
-    public int IdUser { get; set; }
+    public Guid IdUser { get; set; }
     
     [Column("name")]
     public string Name { get; set; }
