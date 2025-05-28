@@ -25,18 +25,15 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token')
 
-  if (!to.meta.reqAuth) {
-    next()
-  } else if (token && to.meta.reqAuth) {
-    next()
-  } else {
+  // Если маршрут требует авторизации и токена нет
+  if (to.meta.reqAuth && !token) {
     next('/login')
   }
-
-  if (to.meta.reqAuth && !token) {
-    next('/')
+  // Если маршрут не требует авторизации и пользователь авторизован
+  else if (!to.meta.reqAuth && token) {
+    next('/') // например, не пускать на /login, если уже вошёл
   } else {
-    next()
+    next() // всё ок
   }
 })
 
