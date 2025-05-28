@@ -43,7 +43,7 @@ public class AuthController : ControllerBase
         await context.Users.AddAsync(user);
         await context.SaveChangesAsync();
 
-        return Created();
+        return StatusCode(201);
     }
 
     [HttpPost("login")]
@@ -56,7 +56,12 @@ public class AuthController : ControllerBase
             return Unauthorized();
 
         var token = GenerateJwtToken(user);
-        return Ok(new { token });
+        return Ok(new { token, user = new
+        {
+            id = user.Id,
+            username = user.Username,
+            startBalance = user.StartBalance,
+        } });
     }
 
     private string GenerateJwtToken(User user)

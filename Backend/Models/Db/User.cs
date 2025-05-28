@@ -22,7 +22,7 @@ public class User
     public Guid? IdPartner { get; set; }
     
     [Column("startBalance")]
-    public decimal? StartBalance { get; set; }
+    public decimal StartBalance { get; set; }
     
     // [ForeignKey(nameof(Role))]
     // [Column("role")]

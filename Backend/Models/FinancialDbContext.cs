@@ -39,6 +39,10 @@ public partial class FinancialDbContext : DbContext
             .HasForeignKey(u => u.IdPartner)
             .OnDelete(DeleteBehavior.SetNull);
         
+        modelBuilder.Entity<User>()
+            .Property(b => b.StartBalance)
+            .HasDefaultValue(0);
+        
         OnModelCreatingPartial(modelBuilder);
     }
 
