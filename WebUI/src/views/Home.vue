@@ -28,7 +28,7 @@ onMounted(() => {
   <div class="text-center text-2xl">Начальный остаток, {{ user.startBalance }}!</div>
   <div class="grid grid-cols-1 gap-2 m-2">
     <BaseButton name="Категории" @click="goTo('/categories')" />
-    <BaseButton name="Финансовые операции" />
+    <BaseButton name="Финансовые операции" @click="goTo('/financial')" />
     <BaseButton name="Отчёты" />
     <BaseButton name="Выход" @click="logout" />
   </div>

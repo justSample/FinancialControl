@@ -4,6 +4,7 @@ import apiCategory from '@/services/categoryService'
 
 import BaseButton from '@/components/BaseButton.vue'
 import BaseInput from '@/components/BaseInput.vue'
+import GridView from '@/components/GridView.vue'
 
 const idUser = ref('')
 
@@ -121,6 +122,17 @@ onMounted(async () => {
   idUser.value = JSON.parse(localStorage.getItem('user')).id
   updateCategories()
 })
+
+const columns = [
+  { key: 'id', label: 'ID' },
+  { key: 'name', label: 'Название категории' },
+  { key: 'operationType', label: 'Операция' },
+  { key: 'idParent', label: 'Подкатегория' },
+]
+
+function handleRowSelected(row) {
+  console.log('Выбранная строка:', row)
+}
 </script>
 
 <template>
@@ -225,67 +237,10 @@ onMounted(async () => {
     </div>
   </div>
 
-  <!-- <div class="grid grid-cols-2">
-    <div class="*:p-2 py-2 pr-2">
-      <div class="text-center text-2xl bg-green-300 rounded-t-xl">Категории дохода</div>
-      <div class="grid grid-cols-2 bg-red-400 rounded-b-xl items-center place-items-center">
-        <div class="text-xl mb-2">Название категории</div>
-        <div class="w-2/4">
-          <BaseInput v-model="newCategoryName" />
-        </div>
-        <div class="text-xl mb-2">Категория операции</div>
-        <div class="w-2/4">
-          <select
-            class="border border-black rounded-md w-full text-black focus:outline-none pl-1 h-full"
-          >
-            <option value="-1" selected hidden>Выберите категорию</option>
-            <option value="0">Доход</option>
-            <option value="1">Расход</option>
-          </select>
-        </div>
-        <div class="col-span-2 w-2/4">
-          <BaseButton name="Добавить" class="w-full" />
-        </div>
-      </div>
-    </div>
-
-    <div class="*:p-2 py-2 pl-2">
-      <div class="text-center text-2xl bg-green-300 rounded-t-xl">Категории расхода</div>
-      <div class="grid grid-cols-2 bg-red-400 rounded-b-xl items-center place-items-center">
-        <div class="text-xl mb-2">Выбранная категория</div>
-
-        <div>
-          <select
-            class="border border-black rounded-md w-full text-black focus:outline-none pl-1 h-full"
-          >
-            <option value="-1" selected hidden>Выберите категорию</option>
-            <option v-for="(item, index) in decreaseCategories" :key="index" :value="item.id">
-              {{ item.name }}
-            </option>
-          </select>
-        </div>
-
-        <div class="text-xl mb-2">Название категории</div>
-        <div class="w-2/4">
-          <BaseInput v-model="newCategoryName" />
-        </div>
-        <div class="text-xl mb-2">операции</div>
-        <div class="w-2/4">
-          <select
-            class="border border-black rounded-md w-full text-black focus:outline-none pl-1 h-full"
-          >
-            <option value="-1" selected hidden>Выберите категорию</option>
-            <option value="0">Доход</option>
-            <option value="1">Расход</option>
-          </select>
-        </div>
-        <div class="w-11/12">
-          <BaseButton name="Изменить" class="w-full" />
-        </div>
-        <div class="w-11/12">
-          <BaseButton name="Удалить" class="w-full" />
-        </div>
-      </div>
-    </div>
-  </div> -->
+  <!--   <GridView
+    class="mt-2"
+    :columns="columns"
+    :rows="selectedCategory.categories"
+    @rowSelected="handleRowSelected"
+  /> -->
 </template>
