@@ -10,10 +10,12 @@ import App from './App.vue'
 import LoginView from './views/Login.vue'
 import HomeView from './views/Home.vue'
 import RegisterView from './views/Register.vue'
+import Categories from './views/Categories.vue'
 
 const routes = [
   { path: '/login', component: LoginView, meta: { reqAuth: false } },
   { path: '/register', component: RegisterView, meta: { reqAuth: false } },
+  { path: '/categories', component: Categories, meta: { reqAuth: true } },
   { path: '/', component: HomeView, meta: { reqAuth: true } },
 ]
 

@@ -1,6 +1,8 @@
 <script setup lang="js">
 const emit = defineEmits(['click'])
-defineProps(['name'])
+defineProps({
+  name: String,
+})
 
 const OnClcik = () => emit('click')
 </script>
