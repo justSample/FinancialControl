@@ -14,6 +14,7 @@ public class FinancialOperation
     [Column("idUserAdd")]
     public Guid IdUserAdd { get; set; }
     
+    // TODO: Категория может быть удалена. Придумай что-нибудь
     [ForeignKey(nameof(Category))]
     [Column("idCategory")]
     public int IdCategory { get; set; }
