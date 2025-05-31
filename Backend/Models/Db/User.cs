@@ -24,15 +24,15 @@ public class User
     [Column("startBalance")]
     public decimal StartBalance { get; set; }
     
-    // [ForeignKey(nameof(Role))]
-    // [Column("role")]
-    // public int IdRole { get; set; }
+    [ForeignKey(nameof(Role))]
+    [Column("idRole")]
+    public int? IdRole { get; set; }
     
     public User? Partner { get; set; }
-    public List<User> Childrens { get; set; } = new();
-    
-    // public Role? Role { get; set; }
+    public Role? Role { get; set; }
+    public List<User> Partners { get; set; } = new();
     
     public List<Category> Categories { get; set; } = new();
     public List<FinancialOperation> FinancialOperations { get; set; } = new();
+    public List<Day> Days { get; set; } = new();
 }

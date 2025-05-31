@@ -11,7 +11,7 @@ namespace Backend.Controllers;
 public class CategoryController : Controller
 {
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetCategories(Guid id)
+    public async Task<IActionResult> Get(Guid id)
     {
         await using FinancialDbContext context = new FinancialDbContext();
         var categories = await context.Categories.Where(x => x.IdUser == id).ToArrayAsync();
@@ -19,38 +19,35 @@ public class CategoryController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddCategory([FromBody] CategoryModel category)
+    public async Task<IActionResult> Post([FromBody] CategoryModel category)
     {
         await using FinancialDbContext context = new FinancialDbContext();
 
-        if (context.Categories.Any(c => c.IdUser == category.IdUser && c.Name == category.Name))
+        if (await context.Categories.AnyAsync(c => c.IdUser == category.IdUser && c.Name == category.Name))
             return BadRequest("Категория с таким названием уже есть");
 
         Category newCategory = new Category()
         {
             Name = category.Name,
-            OperationType = (FinancialOperationType)category.OperationType,
             IdUser = category.IdUser,
             IdParent = category.IdParent,
         };
 
-        context.Categories.Add(newCategory);
+        _ = await context.Categories.AddAsync(newCategory);
         _ = await context.SaveChangesAsync(); // Пока игнорируем, но можно будет в лог выводить
 
         return StatusCode(201, newCategory);
     }
 
     [HttpPut("{idCategory}")]
-    public async Task<IActionResult> EditCategory(int idCategory, [FromBody] CategoryModel category)
+    public async Task<IActionResult> Put(int idCategory, [FromBody] CategoryModel category)
     {
         await using FinancialDbContext context = new FinancialDbContext();
 
-        bool hasCategory = await context.Categories
-            .AnyAsync(c => c.IdUser == category.IdUser && 
-                           c.Name == category.Name && 
-                           c.OperationType == (FinancialOperationType)category.OperationType);
+        bool hasSomeCategory = await context.Categories
+            .AnyAsync(c => c.IdUser == category.IdUser && c.Name == category.Name);
         
-        if (hasCategory) return BadRequest("Такая категория у вас уже есть!");
+        if (hasSomeCategory) return BadRequest("Такая категория у вас уже есть!");
         
         var foundCategory = await context.Categories
             .FirstOrDefaultAsync(c => c.IdUser == category.IdUser && c.Id == idCategory);
@@ -58,18 +55,16 @@ public class CategoryController : Controller
         if (foundCategory == null) return NotFound("Категория не найдена!");
         
         foundCategory.Name = category.Name;
-        foundCategory.OperationType = (FinancialOperationType)category.OperationType;
         foundCategory.IdParent = category.IdParent;
         foundCategory.IdUser = category.IdUser;
         
-        context.Categories.Update(foundCategory);
         _ = await context.SaveChangesAsync();
         
         return NoContent();
     }
 
     [HttpDelete("{idUser}/{idCategory}")]
-    public async Task<IActionResult> DeleteCategory(Guid idUser, int idCategory)
+    public async Task<IActionResult> Delete(Guid idUser, int idCategory)
     {
         await using FinancialDbContext context = new FinancialDbContext();
 

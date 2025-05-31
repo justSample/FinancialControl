@@ -17,11 +17,11 @@ public class Category
     [Column("name")]
     public string Name { get; set; }
     
-    [Column("operationType", TypeName = "int")]
-    public FinancialOperationType OperationType { get; set; }
-    
     [Column("idParent")]
     public int? IdParent { get; set; }
     
     public User User { get; set; }
+    public Category? ParentCategory { get; set; }
+
+    public List<Category> ChildCategories { get; set; } = new();
 }

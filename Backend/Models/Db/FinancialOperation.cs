@@ -10,14 +10,16 @@ public class FinancialOperation
     [Column("id")]
     public int Id { get; set; }
     
-    [ForeignKey(nameof(User))]
-    [Column("idUserAdd")]
-    public Guid IdUserAdd { get; set; }
+    [ForeignKey(nameof(Day))]
+    public int IdDay { get; set; } 
     
-    // TODO: Категория может быть удалена. Придумай что-нибудь
+    [ForeignKey(nameof(User))]
+    [Column("idUser")]
+    public Guid IdUser { get; set; }
+    
     [ForeignKey(nameof(Category))]
     [Column("idCategory")]
-    public int IdCategory { get; set; }
+    public int? IdCategory { get; set; }
     
     [Column("operationType")]
     public FinancialOperationType OperationType { get; set; }
@@ -25,9 +27,7 @@ public class FinancialOperation
     [Column("value")]
     public decimal Value { get; set; }
     
-    [Column("date")]
-    public DateTime Date { get; set; }
-    
     public User User { get; set; }
-    public Category Category { get; set; }
+    public Day Day { get; set; }
+    public Category? Category { get; set; }
 }
