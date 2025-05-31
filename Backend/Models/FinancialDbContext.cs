@@ -17,11 +17,7 @@ public partial class FinancialDbContext : DbContext
         : base(options)
     {
     }
-
-    // Стыдно? Возможно. Хочу ли я его теперь поменять? Тоже возможно. Но уже поздно :)
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseMySQL("server=localhost;port=3309;database=financial;user=juster;password=justersampler;");
-
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // User

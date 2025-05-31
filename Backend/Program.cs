@@ -1,6 +1,8 @@
 using System.Text;
+using Backend.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,6 +34,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
+
 // Настройка CORS
 builder.Services.AddCors(options =>
 {
@@ -42,6 +45,13 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
+});
+
+builder.Services.AddDbContext<FinancialDbContext>(o =>
+{
+    o.UseMySQL("server=localhost;port=3309;database=financial;user=juster;password=justersampler;");
+    o.EnableDetailedErrors(true);
+    o.LogTo(Console.WriteLine, LogLevel.Information);
 });
 
 var app = builder.Build();
